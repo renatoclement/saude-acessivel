@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Saúde Acessível</title>
+
+<style>
+body{
+font-family: Arial;
+background:#f4f4f4;
+text-align:center;
+padding:40px;
+}
+
+.container{
+background:white;
+padding:30px;
+border-radius:10px;
+max-width:400px;
+margin:auto;
+box-shadow:0 0 10px rgba(0,0,0,0.1);
+}
+
+input{
+width:90%;
+padding:10px;
+margin:5px;
+}
+
+button{
+padding:10px 20px;
+background:#2ecc71;
+border:none;
+color:white;
+font-size:16px;
+cursor:pointer;
+}
+
+.resultado{
+margin-top:20px;
+font-weight:bold;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>Bem vindo ao aplicativo<br>Saúde Acessível</h2>
+
+<input id="nome" placeholder="Digite seu nome">
+
+<input id="idade" type="number" placeholder="Sua idade">
+
+<input id="altura" placeholder="Altura (ex: 1.70)">
+
+<input id="peso" placeholder="Peso (ex: 68.4)">
+
+<input id="agua" placeholder="Água por dia (litros)">
+
+<br><br>
+
+<button onclick="calcular()">Ver Resultado</button>
+
+<div class="resultado" id="resultado"></div>
+
+</div>
+
+<script>
+
+function calcular(){
+
+let nome = document.getElementById("nome").value
+let idade = Number(document.getElementById("idade").value)
+let altura = document.getElementById("altura").value.replace(",", ".")
+let peso = document.getElementById("peso").value.replace(",", ".")
+
+altura = parseFloat(altura)
+peso = parseFloat(peso)
+
+if(!altura || !peso){
+alert("Digite altura e peso corretamente")
+return
+}
+
+let imc = peso / (altura * altura)
+
+let mensagem = `Olá ${nome}!<br>Seu IMC é ${imc.toFixed(2)}<br>`
+if(imc < 18.5){
+mensagem += "Você está abaixo do peso ideal!<br>"
+}
+else if(imc <= 24.9){
+mensagem += "Parabéns seu peso está ideal!<br>"
+}
+else if(imc <= 29.9){
+mensagem += "Atenção você está com sobrepeso!<br>"
+}
+else{
+mensagem += "Cuidado você está com obesidade!<br>"
+}
+
+let aguaIdeal
+
+if(idade <= 17){
+aguaIdeal = peso * 40 / 1000
+}
+else if(idade <= 55){
+aguaIdeal = peso * 35 / 1000
+}
+else if(idade <= 65){
+aguaIdeal = peso * 30 / 1000
+}
+else{
+aguaIdeal = peso * 25 / 1000
+}
+
+mensagem += `<br>Você deveria beber ${aguaIdeal.toFixed(2)} litros de água por dia.<br><br>`
+
+mensagem += "Lembre-se de comer saudável!<br>"
+mensagem += "Priorize alimentos frescos!<br>"
+mensagem += "Faça exercícios regularmente!<br>"
+
+document.getElementById("resultado").innerHTML = mensagem
+
+}
+
+</script>
+
+</body>
+</html>
